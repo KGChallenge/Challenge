@@ -1,0 +1,17 @@
+@prefix cc:    <http://creativecommons.org/ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix kgc:   <http://kgc.knowledge-graph.jp/ontology/kgc.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix kd:    <http://kgc.knowledge-graph.jp/data/SpeckledBand/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix kdf:   <http://kgchallenge.github.io/data/#> .
+@prefix kgcf:  <http://kgchallenge.github.io/ontology/#> .
+
+kd:bedroom_of_Roylott
+        kdf:haveOpenHoleTo  kd:corridor .
+
+kd:bedroom_of_Helen  kdf:haveOpenHoleTo
+                kd:corridor .
+
+kd:corridor  kdf:haveOpenHoleTo  kd:bedroom_of_Roylott , kd:bedroom_of_Helen .

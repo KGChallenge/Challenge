@@ -1,0 +1,219 @@
+# 動機がある人に HasMotivation のタイプを付与する
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix kgc: <http://kgc.knowledge-graph.jp/ontology/kgc.owl#> .
+@prefix kd: <http://kgc.knowledge-graph.jp/data/SpeckledBand/> .
+@prefix kgcf: <http://kgchallenge.github.io/ontology/#> .
+@prefix kdf:  <http://kgchallenge.github.io/data/#> .
+@prefix agrelon: <http://d-nb.info/standards/elementset/agrelon#> .
+
+# お金を得る可能性のある人
+# money1
+sh:GetMoneyMotivation
+  a sh:NodeShape ;
+  sh:targetClass kgc:Person ;
+  sh:order 1 ;
+  sh:rule [
+    a sh:SPARQLRule ;
+    sh:construct """
+      PREFIX kgc: <http://kgc.knowledge-graph.jp/ontology/kgc.owl#>
+      PREFIX kd: <http://kgc.knowledge-graph.jp/data/SpeckledBand/>
+      PREFIX kgcf: <http://kgchallenge.github.io/ontology/#> 
+      PREFIX kdf: <http://kgchallenge.github.io/data/#> 
+      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+
+      CONSTRUCT {
+        # 動機ごとに 分けたい．
+        # その人にとっての金銭感覚や動くお金の規模等で，犯罪につながるほどのことなのか判断されるべき(以下のルールは考慮していない
+        $this kgcf:hasMotivation kdf:greed_for_money ;
+              kgcf:want_to_kill ?tatget .
+      } WHERE {  
+        VALUES ?lose_pred {kd:give kd:pay kd:lose} .
+        VALUES ?get_pred {kd:have} .
+        ?subclass_of_scene rdfs:subClassOf kgc:Scene .
+        {
+          ?_ kgc:subject $this ;
+             kgc:hasPredicate ?get_pred ;
+             kgc:what kd:money ;
+             kgc:if ?if .
+        } UNION {
+      
+          ?__ kgc:whom $this ;
+              kgc:hasPredicate ?lose_pred ;
+              kgc:what kd:money ;
+              kgc:if ?if .
+        }
+
+	# ?if の先がsituationである
+	# situation が 未来の要素なら←これは何らかのsituationからifで参照されていればいい？
+	# 誰かが死ぬことで未来のsituationが起きる条件を満たさないならば
+	# その人がターゲット # 条件を壊すのは人とは限らないけど...
+	{ 
+	  ?if a ?subclass_of_scene ;
+	      kgc:subject ?target .
+	} UNION {
+          ?if a ?subclass_of_scene ;
+	      kgc:whom ?target .
+	}
+	?target a kgc:Person .
+	    
+      
+        # FILTER($this IN (?subject, ?object))
+        # ?motivation kgc:source ?motivation_source .
+        # ?if kgc:source ?if_source .
+        # filter(lang(?motivation_source)='ja')
+        # filter(lang(?if_source)='ja')
+      }
+      """ ;
+  ] .
+
+# お金を失う可能性のある人
+sh:LoseMoneyMotivation
+  a sh:NodeShape ;
+  sh:targetClass kgc:Person ;
+  sh:order 2 ;
+  sh:rule [
+    a sh:SPARQLRule ;
+    sh:construct """
+      PREFIX kgc: <http://kgc.knowledge-graph.jp/ontology/kgc.owl#>
+      PREFIX kd: <http://kgc.knowledge-graph.jp/data/SpeckledBand/>
+      PREFIX kgcf: <http://kgchallenge.github.io/ontology/#> 
+      PREFIX kdf: <http://kgchallenge.github.io/data/#> 
+      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+
+      CONSTRUCT {
+        $this kgcf:hasMotivation kdf:greed_for_money ;
+	      kgcf:want_to_kill ?target .
+      } WHERE {  
+        VALUES ?lose_pred {kd:give kd:pay kd:lose} .
+        VALUES ?get_pred {kd:have} .
+        ?subclass_of_scene rdfs:subClassOf kgc:Scene .
+        
+        {
+          ?_ kgc:subject $this ;
+             kgc:hasPredicate ?lose_pred ;
+             kgc:what kd:money ;
+             kgc:if ?if .
+        } UNION {
+      
+          ?__ kgc:whom $this ;
+              kgc:hasPredicate ?get_pred ;
+              kgc:what kd:money ;
+              kgc:if ?if .
+        }
+
+	# ?if の先がsituationである
+        # situation が 未来の要素なら←これは何らかのsituationからifで参照されていればいい？
+        # 誰かが死ぬことで未来のsituationが起きる条件を満たさないならば
+        # その人がターゲット # 条件を壊すのは人とは限らないけど...
+        {
+          ?if a ?subclass_of_scene ;
+              kgc:subject ?target .
+        } UNION {
+          ?if a ?subclass_of_scene ;
+              kgc:whom ?target .
+        }
+        # ?target a kgc:Person .
+      
+        # FILTER($this IN (?subject, ?object))
+        # ?motivation kgc:source ?motivation_source .
+        # ?if kgc:source ?if_source .
+        # filter(lang(?motivation_source)='ja')
+        # filter(lang(?if_source)='ja') 
+ 
+      }
+      """ ;
+  ] .
+
+# 恐怖を与えられている人 # ←ひどい扱い（そのほか精神的な苦痛を）与えられている人にしたい
+sh:ScaredMotivation
+  a sh:NodeShape ;
+  sh:targetClass kgc:Person ;
+  sh:order 3 ;
+  sh:rule [
+    a sh:SPARQLRule ;
+    sh:construct """
+      PREFIX kgc: <http://kgc.knowledge-graph.jp/ontology/kgc.owl#>
+      PREFIX kd: <http://kgc.knowledge-graph.jp/data/SpeckledBand/>
+      PREFIX kgcf: <http://kgchallenge.github.io/ontology/#> 
+      PREFIX kdf: <http://kgchallenge.github.io/data/#> 
+      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+
+      CONSTRUCT {
+        $this kgcf:hasMotivation kdf:self_defence ;
+              kgcf:want_to_kill ?target .
+      } WHERE {
+        VALUES ?pred_of_beScare {kd:beScared kd:beCruellyUsed} .
+        VALUES ?pred_of_scare {kd:scared kd:cruellyUsed} .
+        ?subclass_of_scene rdfs:subClassOf kgc:Scene .
+        {
+          ?situation kgc:hasPredicate ?pred_of_beScare ; # ?pred_of_beScare ;
+                     kgc:subject $this ;
+                     kgc:whom ?target .
+        } UNION { 
+          ?situation kgc:hasPredicate ?pred_of_scare  ;
+                     kgc:subject ?target ;
+                     kgc:whom $this .
+        }
+        $this a kgc:Person .
+      }
+      """ ;
+  ] .
+
+# 身内が死んだ人で，その死の原因となった人に心当たりがある人
+sh:RancorMotivation
+  a sh:NodeShape ;
+  sh:targetClass kgc:Person ;
+  sh:order 4 ;
+  sh:rule [
+    a sh:SPARQLRule ;
+    sh:construct """
+      PREFIX kgc: <http://kgc.knowledge-graph.jp/ontology/kgc.owl#>
+      PREFIX kd: <http://kgc.knowledge-graph.jp/data/SpeckledBand/>
+      PREFIX kgcf: <http://kgchallenge.github.io/ontology/#> 
+      PREFIX kdf: <http://kgchallenge.github.io/data/#> 
+      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+
+      CONSTRUCT {
+        $this kgcf:hasMotivation kdf:rancor ;
+              kgcf:want_to_kill ?killer .
+      } WHERE {  
+        VALUES ?pred_of_think {kd:suspect} .
+        ?subclass_of_scene rdfs:subClassOf kgc:Scene .
+ 
+        # 誰かが死んだシーン
+        ?die_situation a ?subclass_of_scene ;
+                       kgc:hasPredicate kd:die ; #kd:beKilledの方がよい？
+                       # kgc:whom ?killer ; # この時点では殺した"人"は必要ではない？
+                       kgc:subject ?dead_person .
+
+	# 死人と近い関係にあった人
+        ?relation_of_close_person a kgcf:relation_of_family .
+        $this ?relation_of_close_person ?dead_person .
+ 	
+	# 殺人犯に当たりがついているか
+        ?think_situatoin a ?subclass_of_scene ; 
+                         kgc:hasPredicate ?pred_of_think ;
+                         kgc:subject $this ;
+                         kgc:what ?action .
+        {
+          ?action a ?subclass_of_scene ;
+                  kgc:subject ?killer ;
+                  kgc:whom ?dead_person ;
+                  kgc:hasPredicate kd:kill ; # 事実ではなく考えていることとして扱わないといけない
+                  kgcf:hasAttribution kd:uncertainly . # この情報は不確実だということを表したい．← これが必須である必要はある？
+        } UNION {
+          ?action a ?subclass_of_scene ;
+                  kgc:subject ?dead_person ;
+                  kgc:whom ?killer ;
+                  kgc:hasPredicate kd:beKilled ; # 事実ではなく考えていることとして扱わないといけない
+                  kgcf:hasAttribution kd:uncertainly . # この情報は不確実だということを表したい．← これが必須である必要はある？
+        }
+      }
+      """ ;
+  ] .
+

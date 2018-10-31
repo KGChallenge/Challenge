@@ -1,0 +1,51 @@
+PREFIX owl: <http://www.w3.org/2002/07/owl#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX kgc: <http://kgc.knowledge-graph.jp/ontology/kgc.owl#>
+PREFIX kd: <http://kgc.knowledge-graph.jp/data/SpeckledBand/>
+PREFIX kgcf: <http://kgchallenge.github.io/ontology/>
+
+SELECT distinct ?situation ?symptom_instance ?symptom ?symptom_status ?killing WHERE {
+	{
+		?situation rdf:type kgc:Situation ;
+			kgc:subject kd:Julia ;
+			kgc:when kd:death_day_of_Julia ;
+			kgc:hasProperty ?symptom_instance .
+		?symptom_instance a ?symptom .
+		?killing rdfs:subClassOf / owl:onProperty kgcf:hasSymptom .
+		?killing rdfs:subClassOf / owl:someValuesFrom ?symptom .
+	       	BIND("true" AS ?symptom_status)
+	} UNION {
+		BIND(kgcf:傷跡 AS ?symptom)
+		?situation rdf:type kgc:Situation ;
+			kgc:subject kd:Julia ;
+			kgc:when kd:death_day_of_Julia ;
+			kgc:what ?symptom_instance ;
+			kgc:hasPredicate ?pred .
+		?symptom_instance a ?symptom .
+		FILTER(?pred = kd:notHave) 
+		BIND("false" AS ?symptom_status)
+		?killing rdfs:subClassOf kgcf:殺害方法 .
+		?subkilling rdfs:subClassOf* ?killing .
+		FILTER NOT EXISTS {
+			?killing rdfs:subClassOf / owl:someValuesFrom ?symptom .
+			?subkilling rdfs:subClassOf* ?killing .
+		}
+	} UNION {
+		BIND(kgcf:傷跡 AS ?symptom)
+		?situation rdf:type kgc:Situation ;
+			kgc:subject kd:Julia ;
+			kgc:when kd:death_day_of_Julia ;
+			kgc:what ?symptom_instance ;
+			kgc:hasPredicate ?prop .
+		?symptom_instance a ?symptom .
+		FILTER(?prop = kd:have) 
+		BIND("true" AS ?symptom_status)
+		?killing rdfs:subClassOf kgcf:殺害方法 .
+		?subkilling rdfs:subClassOf* ?killing .
+		FILTER EXISTS {
+			?killing rdfs:subClassOf / owl:someValuesFrom ?symptom .
+			?subkilling rdfs:subClassOf* ?killing .
+		}
+	}
+}

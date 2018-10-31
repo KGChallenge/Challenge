@@ -1,0 +1,18 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX kgc: <http://kgc.knowledge-graph.jp/ontology/kgc.owl#>
+PREFIX kd: <http://kgc.knowledge-graph.jp/data/SpeckledBand/>
+SELECT DISTINCT ?id ?source ?predicate ?subj ?where
+WHERE{BIND(kd:67 as ?event)
+?event kgc:when ?crime_time.
+?id kgc:when ?crime_time;
+kgc:source ?source;
+kgc:hasPredicate ?predicate;
+kgc:subject ?subj;
+kgc:where ?where.
+?subj a kgc:Person.
+FILTER(LANG(?source) = 'ja').
+      
+MINUS{
+?event kgc:then+ ?id.
+}
+} 

@@ -1,0 +1,27 @@
+@prefix ns1: <http://kgchallenge.github.io/ontology/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://kgc.knowledge-graph.jp/data/SpeckledBand/Roylott> ns1:has_method _:Ne27db68bb2044416ae185f0a930b9845,
+        _:Ne502c03085ac4eb69c4f8b90f66b172a .
+
+[] a rdf:Statement ;
+    ns1:has_reason [ ns1:reason_situ <http://kgc.knowledge-graph.jp/data/SpeckledBand/390> ;
+            ns1:related_reason <http://kgc.knowledge-graph.jp/data/SpeckledBand/whip> ] ;
+    rdf:object _:Ne502c03085ac4eb69c4f8b90f66b172a ;
+    rdf:predicate ns1:has_method ;
+    rdf:subject <http://kgc.knowledge-graph.jp/data/SpeckledBand/Roylott> .
+
+[] a rdf:Statement ;
+    ns1:has_reason [ ns1:reason_situ <http://kgc.knowledge-graph.jp/data/SpeckledBand/390> ;
+            ns1:related_reason <http://kgc.knowledge-graph.jp/data/SpeckledBand/whip> ] ;
+    rdf:object _:Ne27db68bb2044416ae185f0a930b9845 ;
+    rdf:predicate ns1:has_method ;
+    rdf:subject <http://kgc.knowledge-graph.jp/data/SpeckledBand/Roylott> .
+
+_:Ne27db68bb2044416ae185f0a930b9845 a ns1:毒蛇殺 .
+
+_:Ne502c03085ac4eb69c4f8b90f66b172a a ns1:毒動物殺 .
+

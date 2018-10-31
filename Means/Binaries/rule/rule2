@@ -1,0 +1,7 @@
+ {
+  ?situation kgc:hasPredicate <http://kgc.knowledge-graph.jp/data/SpeckledBand/have> .
+  ?situation kgc:subject ?person .
+  ?person a kgc:Person .
+  ?situation kgc:what ?reason .
+  ?reason a/(rdfs:subClassOf*) %%OBJCLASS%% .
+ }

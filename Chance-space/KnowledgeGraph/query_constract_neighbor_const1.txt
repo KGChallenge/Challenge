@@ -1,0 +1,54 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX kgc: <http://kgc.knowledge-graph.jp/ontology/kgc.owl#>
+PREFIX kd: <http://kgc.knowledge-graph.jp/data/SpeckledBand/>
+PREFIX kgcf: <http://kgchallenge.github.io/ontology/#>
+PREFIX kdf:  <http://kgchallenge.github.io/data/#>
+
+# SELECT distinct ?x ?y ?hole ?scene
+# WHERE{
+CONSTRUCT{
+  ?x kdf:haveOpenHoleTo ?y .
+  ?y kdf:haveOpenHoleTo ?x .
+} WHERE{
+
+# ?x と ?y が穴でつながっている
+?scene rdf:type ?scenetype .
+?scene kgc:hasPredicate ?predexist .
+?scene kgc:subject ?hole .
+{
+  ?scene kgc:from ?x . ?scene kgc:to ?y .
+} UNION {
+  ?scene kgc:from ?y . ?scene kgc:to ?x .
+} UNION {
+  ?scene kgc:where ?x . ?scene kgc:where ?y .
+} UNION {
+  ?scene kgc:where ?x . ?scene kgc:to ?y .
+} UNION {
+  ?scene kgc:where ?y . ?scene kgc:to ?x .
+}
+?x rdf:type ?xtype .
+?y rdf:type ?ytype .
+{?hole rdf:type kgcf:Hole .} UNION {?hole rdf:type ?holetype . ?holetype rdfs:subClassOf+ kgcf:Hole .}
+filter(?scenetype in (kgc:Situation, kgc:Thought, kgc:Talk))
+filter(?predexist in (kd:go, kd:exist))
+filter(?xtype in (kgc:Object, kgc:Place))
+filter(?ytype in (kgc:Object, kgc:Place))
+filter(?x != ?y)
+
+
+MINUS { # 人は ?hole を通れない
+?scene2 rdf:type ?scenetype2 .
+?scene2 kgc:hasPredicate ?prednotgo .
+?scene2 kgc:subject kd:man .
+{
+  {?scene2 kgc:from ?x . ?scene2 kgc:to ?y .} UNION {?scene2 kgc:from ?y . ?scene2 kgc:to ?x .}
+} UNION {
+  ?scene2 kgc:where ?hole .
+}
+filter(?scenetype2 in (kgc:Situation, kgc:Thought, kgc:Talk))
+filter(?prednotgo in (kd:cannotGo, kd:notGo))
+}
+
+
+}order by (?x)

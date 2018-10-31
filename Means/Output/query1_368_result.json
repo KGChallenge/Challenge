@@ -1,0 +1,30 @@
+{
+  "head": {
+    "vars": [ "situation" , "symptom_instance" , "symptom" , "symptom_status" , "killing" ]
+  } ,
+  "results": {
+    "bindings": [
+      {
+        "situation": { "type": "uri" , "value": "http://kgc.knowledge-graph.jp/data/SpeckledBand/73" } ,
+        "symptom_instance": { "type": "uri" , "value": "http://kgc.knowledge-graph.jp/data/SpeckledBand/beDizzy" } ,
+        "symptom": { "type": "uri" , "value": "http://kgchallenge.github.io/ontology/めまい" } ,
+        "symptom_status": { "type": "literal" , "value": "true" } ,
+        "killing": { "type": "uri" , "value": "http://kgchallenge.github.io/ontology/毒殺" }
+      } ,
+      {
+        "situation": { "type": "uri" , "value": "http://kgc.knowledge-graph.jp/data/SpeckledBand/72" } ,
+        "symptom_instance": { "type": "uri" , "value": "http://kgc.knowledge-graph.jp/data/SpeckledBand/turnPale" } ,
+        "symptom": { "type": "uri" , "value": "http://kgchallenge.github.io/ontology/青白い" } ,
+        "symptom_status": { "type": "literal" , "value": "true" } ,
+        "killing": { "type": "uri" , "value": "http://kgchallenge.github.io/ontology/毒殺" }
+      } ,
+      {
+        "situation": { "type": "uri" , "value": "http://kgc.knowledge-graph.jp/data/SpeckledBand/104" } ,
+        "symptom_instance": { "type": "uri" , "value": "http://kgc.knowledge-graph.jp/data/SpeckledBand/scar" } ,
+        "symptom": { "type": "uri" , "value": "http://kgchallenge.github.io/ontology/傷跡" } ,
+        "symptom_status": { "type": "literal" , "value": "false" } ,
+        "killing": { "type": "uri" , "value": "http://kgchallenge.github.io/ontology/毒殺" }
+      }
+    ]
+  }
+}

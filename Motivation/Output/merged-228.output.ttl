@@ -1,0 +1,22 @@
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://kgc.knowledge-graph.jp/data/SpeckledBand/Roylott>
+        <http://kgchallenge.github.io/ontology/#hasMotivation>
+                <http://kgchallenge.github.io/ontology/#greed_for_money> ;
+        <http://kgchallenge.github.io/ontology/#want_to_kill>
+                <http://kgc.knowledge-graph.jp/data/SpeckledBand/Julia> , <http://kgc.knowledge-graph.jp/data/SpeckledBand/Helen> .
+
+<http://kgc.knowledge-graph.jp/data/SpeckledBand/Helen>
+        <http://kgchallenge.github.io/ontology/#hasMotivation>
+                <http://kgchallenge.github.io/ontology/#self_defence> ;
+        <http://kgchallenge.github.io/ontology/#want_to_kill>
+                <http://kgc.knowledge-graph.jp/data/SpeckledBand/Roylott> .
+
+<http://kgc.knowledge-graph.jp/data/SpeckledBand/villager_of_Stoke_Moran>
+        <http://kgchallenge.github.io/ontology/#hasMotivation>
+                <http://kgchallenge.github.io/ontology/#self_defence> ;
+        <http://kgchallenge.github.io/ontology/#want_to_kill>
+                <http://kgc.knowledge-graph.jp/data/SpeckledBand/Roylott> .

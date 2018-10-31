@@ -1,0 +1,34 @@
+# motivation.ttl
+# モチベーションのオントロジ
+@prefix kgc: <http://kgc.knowledge-graph.jp/ontology/kgc.owl#> .
+@prefix kd: <http://kgc.knowledge-graph.jp/data/SpeckledBand/> .
+@prefix kgcf: <http://kgchallenge.github.io/ontology/#> .
+@prefix kdf: <http://kgchallenge.github.io/data/#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+
+kgcf:motivation a rdfs:Class .
+kgcf:motivation_of_murder a rdfs:Class ;
+  rdfs:subClassOf kgcf:motivation .
+
+# 怨恨
+kdf:rancor a kgcf:motivation_of_murder .
+# 痴情
+kdf:blind_love a kgcf:motivation_of_murder . 
+# 薬物の作用等
+kdf:effect_of_drug a kgcf:motivation_of_murder . 
+# 自己顕示
+kdf:self_revelation a kgcf:motivation_of_murder . 
+# 防衛・護身
+kdf:self_defence a kgcf:motivation_of_murder .
+# 服従・迎合←支配？
+kdf:domination a kgcf:motivation_of_murder .
+# 信条・信念
+kdf:belief a kgcf:motivation_of_murder .
+# 生活充当
+# 遊興費充当
+kdf:greed_for_money a kgcf:motivation_of_murder .
+
+# その他の利欲
+# その他
+# 不明

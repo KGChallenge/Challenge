@@ -1,0 +1,6 @@
+id,source,predicate,subj,where
+http://kgc.knowledge-graph.jp/data/SpeckledBand/103,事件当夜，ジュリアは部屋にひとりだった。,http://kgc.knowledge-graph.jp/data/SpeckledBand/exist,http://kgc.knowledge-graph.jp/data/SpeckledBand/Julia,http://kgc.knowledge-graph.jp/data/SpeckledBand/bedroom_of_Julia
+http://kgc.knowledge-graph.jp/data/SpeckledBand/107,事件当夜，ロマは敷地の中にいた。,http://kgc.knowledge-graph.jp/data/SpeckledBand/exist,http://kgc.knowledge-graph.jp/data/SpeckledBand/Roma,http://kgc.knowledge-graph.jp/data/SpeckledBand/garden_of_Roylott
+http://kgc.knowledge-graph.jp/data/SpeckledBand/55,ジュリアはインドタバコの臭いに悩まされた,http://kgc.knowledge-graph.jp/data/SpeckledBand/smell,http://kgc.knowledge-graph.jp/data/SpeckledBand/Julia,http://kgc.knowledge-graph.jp/data/SpeckledBand/bedroom_of_Julia
+http://kgc.knowledge-graph.jp/data/SpeckledBand/53,ロイロットは寝室で起きていた（ジュリア想像）,http://kgc.knowledge-graph.jp/data/SpeckledBand/wakeUp,http://kgc.knowledge-graph.jp/data/SpeckledBand/Roylott,http://kgc.knowledge-graph.jp/data/SpeckledBand/bedroom_of_Roylott
+http://kgc.knowledge-graph.jp/data/SpeckledBand/67,事件当夜，ジュリアの声が聞こえた,http://kgc.knowledge-graph.jp/data/SpeckledBand/hear,http://kgc.knowledge-graph.jp/data/SpeckledBand/Helen,http://kgc.knowledge-graph.jp/data/SpeckledBand/bedroom_of_Helen
