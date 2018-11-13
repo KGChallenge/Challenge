@@ -17,7 +17,6 @@ KnowledgeGraph/
 ```
 bash run_inference.sh
 ```
-- bin/sparql で apache-jena の sparql を実行できることを想定
 
 ## 結果
 
@@ -30,7 +29,7 @@ Start places: <http://kgc.knowledge-graph.jp/data/SpeckledBand/bedroom_of_Helen>
 
 (a) merged.ttl: 完全
 ```
-***GRAPH output/merged.ttl***
+***GRAPH Output/merged.ttl***
 ```
 
 0. 「通れない」条件の適用無し（穴を介して繋がっている全地点が通れるとする）
