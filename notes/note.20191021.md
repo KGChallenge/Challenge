@@ -17,7 +17,7 @@
 ```
 $ cd $KGCC_HOME
 $ git clone https://github.com/KGChallenge/Challenge.git
-$ cd Challenge/dockerfiles 
+$ cd Challenge/dockerfiles
 $ docker build -t image_name:tag . # image_name, tag は適宜変更可能 
 $                                  # (変更した場合は，以下のコマンドもそれに合わせる)
 ```
@@ -76,7 +76,7 @@ $ docker exec -it container_name /bin/bash       # container_name に入る
 
 ---
 
-# 2.0. 2019年に度追加されたKGへの対応
+# 2.0. 2019年度に追加されたKGへの対応
 
 ---
 # 2.1. 事件当夜の各々の居場所を取得するSPARQL
