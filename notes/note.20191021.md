@@ -277,7 +277,7 @@ $ sparql --data KnowledgeGraph/SpeckledBand.ttl --query query5.rq
 ---
 # 2.4. どうやら，今年度はdeath_day_of_...はないらしい？(イベント開催当時)
 > Option
-- お気づきの点はこの[リポジトリ](https://github.com/KnowledgeGraphJapan/KGRC-RDF)などにissueを投げていただける解決されるかもしれません．
+- お気づきの点はこの[リポジトリ](https://github.com/KnowledgeGraphJapan/KGRC-RDF)などにissueを投げていただけると解決されるかもしれません．
   - ex) `今年度の追加されたデータには昨年度はあった「death_day_of_julia」のような情報はないのでしょうか ＞＜？`
 
 ##### データの拡張で対策
